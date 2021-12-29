@@ -83,15 +83,15 @@ class _3AddressCode {
         StringBuffer res = new StringBuffer("(");
         res.append(operation.toString()).append(",");
         if (Operand1 != null) {
-            res.append(Operand1.toString());
+            res.append(Operand1);
         }
         res.append(",");
         if (Operand2 != null) {
-            res.append(Operand2.toString());
+            res.append(Operand2);
         }
         res.append(",");
         if (Operand3 != null) {
-            res.append(Operand3.toString());
+            res.append(Operand3);
         }
         res.append(")");
 
