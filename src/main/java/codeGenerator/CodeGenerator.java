@@ -164,14 +164,20 @@ public class CodeGenerator {
 
                 Symbol s = symbolTable.get(className, methodName, next.value);
                 varType t = varType.Int;
-                switch (s.type) {
-                    case Bool:
-                        t = varType.Bool;
-                        break;
-                    case Int:
-                        t = varType.Int;
-                        break;
-                }
+
+                if (s.type == SymbolType.Int)
+                    t = varType.Int;
+                else
+                    t = varType.Bool;
+
+//                switch (s.type) {
+//                    case Bool:
+//                        t = varType.Bool;
+//                        break;
+//                    case Int:
+//                        t = varType.Int;
+//                        break;
+//                }
                 ss.push(new Address(s.address, t));
 
 
