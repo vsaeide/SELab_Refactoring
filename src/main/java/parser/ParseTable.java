@@ -8,10 +8,10 @@ import java.util.*;
  * Created by mohammad hosein on 6/25/2015.
  */
 public class ParseTable {
-    private List<Map<Token, Action>> actionTable;
-    private List<Map<NonTerminal, Integer>> gotoTable;
+    private static ArrayList<Map<Token, Action>> actionTable;
+    private static ArrayList<Map<NonTerminal, Integer>> gotoTable;
 
-    public ParseTable(String jsonTable) throws Exception {
+    static ParseTable create(String jsonTable) throws Exception {
         jsonTable = jsonTable.substring(2, jsonTable.length() - 2);
         String[] rows = jsonTable.split("\\],\\[");
         Map<Integer, Token> terminals = new HashMap<Integer, Token>();
@@ -54,6 +54,7 @@ public class ParseTable {
                 }
             }
         }
+        return new ParseTable();
     }
 
     public int getGotoTable(int currentState, NonTerminal variable) {
