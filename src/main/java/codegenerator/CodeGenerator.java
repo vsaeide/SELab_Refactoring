@@ -289,11 +289,11 @@ public class CodeGenerator {
         if (s1.getVarType() != varType.Int || s2.getVarType() != varType.Int) {
             ErrorHandler.printError("In " + oprand + " two operands must be integer");
         }
-        if (oprand.equals("add")) {
+        if ("add".equals(oprand)) {
             memory.add3AddressCode(Operation.ADD, s1, s2, temp);
-        } else if (oprand.equals("sub")) {
+        } else if ("sub".equals(oprand)) {
             memory.add3AddressCode(Operation.SUB, s1, s2, temp);
-        }else if (oprand.equals("mult")){
+        }else if ("mult".equals(oprand)){
             memory.add3AddressCode(Operation.MULT, s1, s2, temp);
         }
         ss.push(temp);
