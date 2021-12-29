@@ -1,8 +1,5 @@
 package scanner.type;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 /**
  * Created by Alireza on 2015-05-26.
  */

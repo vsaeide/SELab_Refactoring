@@ -1,7 +1,7 @@
 package codegenerator;
 
-import Log.Log;
-import errorHandler.ErrorHandler;
+import log.Log;
+import errorhandler.ErrorHandler;
 import scanner.token.Token;
 import semantic.symbol.Symbol;
 import semantic.symbol.SymbolTable;
@@ -151,9 +151,6 @@ public class CodeGenerator {
 
     public void checkID() {
         symbolStack.pop();
-        if (ss.peek().getVarType() == VarType.NON) {
-            //TODO : error
-        }
     }
 
     public void pid(Token next) {
