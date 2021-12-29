@@ -233,7 +233,8 @@ public class CodeGenerator {
             t = VarType.BOOL;
         }
 
-        Address temp = new Address(memory.getTemp(), t);
+        memory.addLastTempIndex();
+        Address temp = new Address(memory.getLastTempIndex(), t);
         ss.push(temp);
         memory.add3AddressCode(Operation.ASSIGN, new Address(temp.getNum(), VarType.ADDRESS, TypeAddress.Imidiate), new Address(symbolTable.getMethodReturnAddress(className, methodName), VarType.ADDRESS), null);
         memory.add3AddressCode(Operation.ASSIGN, new Address(memory.getCurrentCodeBlockAddress() + 2, VarType.ADDRESS, TypeAddress.Imidiate), new Address(symbolTable.getMethodCallerAddress(className, methodName), VarType.ADDRESS), null);
@@ -278,8 +279,8 @@ public class CodeGenerator {
 
 
     public void operand(String oprand) {
-
-        Address temp = new Address(memory.getTemp(), VarType.INT);
+        memory.addLastTempIndex();
+        Address temp = new Address(memory.getLastTempIndex(), VarType.INT);
         Address s2 = ss.pop();
         Address s1 = ss.pop();
 
@@ -325,7 +326,8 @@ public class CodeGenerator {
     }
 
     public void equal() {
-        Address temp = new Address(memory.getTemp(), VarType.BOOL);
+        memory.addLastTempIndex();
+        Address temp = new Address(memory.getLastTempIndex(), VarType.BOOL);
         Address s2 = ss.pop();
         Address s1 = ss.pop();
         if (s1.getVarType() != s2.getVarType()) {
@@ -336,7 +338,8 @@ public class CodeGenerator {
     }
 
     public void lessThan() {
-        Address temp = new Address(memory.getTemp(), VarType.BOOL);
+        memory.addLastTempIndex();
+        Address temp = new Address(memory.getLastTempIndex(), VarType.BOOL);
         Address s2 = ss.pop();
         Address s1 = ss.pop();
         if (s1.getVarType() != VarType.INT || s2.getVarType() != VarType.INT) {
@@ -347,7 +350,8 @@ public class CodeGenerator {
     }
 
     public void and() {
-        Address temp = new Address(memory.getTemp(), VarType.BOOL);
+        memory.addLastTempIndex();
+        Address temp = new Address(memory.getLastTempIndex(), VarType.BOOL);
         Address s2 = ss.pop();
         Address s1 = ss.pop();
         if (s1.getVarType() != VarType.BOOL || s2.getVarType() != VarType.BOOL) {
@@ -359,7 +363,8 @@ public class CodeGenerator {
     }
 
     public void not() {
-        Address temp = new Address(memory.getTemp(), VarType.BOOL);
+        memory.addLastTempIndex();
+        Address temp = new Address(memory.getLastTempIndex(), VarType.BOOL);
         Address s2 = ss.pop();
         Address s1 = ss.pop();
         if (s1.getVarType() != VarType.BOOL) {

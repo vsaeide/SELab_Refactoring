@@ -22,15 +22,32 @@ public class Memory {
         lastDataAddress = stratDataMemoryAddress;
     }
 
-    public int getTemp() {
+    public void addLastTempIndex(){
         lastTempIndex += tempSize;
+    }
+
+    public int getLastTempIndex(){
         return lastTempIndex - tempSize;
     }
 
-    public int getDateAddress() {
+
+    public void AddSizeDataAddres(){
         lastDataAddress += dataSize;
+    }
+
+    public int getLastDataAddress(){
         return lastDataAddress - dataSize;
     }
+
+//    public int getTemp() {
+//        lastTempIndex += tempSize;
+//        return lastTempIndex - tempSize;
+//    }
+//
+//    public int getDateAddress() {
+//        lastDataAddress += dataSize;
+//        return lastDataAddress - dataSize;
+//    }
 
     public int saveMemory() {
         codeBlock.add(new ThreeAddressCode());

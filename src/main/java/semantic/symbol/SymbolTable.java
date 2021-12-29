@@ -38,7 +38,8 @@ public class SymbolTable {
     }
 
     public void addField(String fieldName, String className) {
-        klasses.get(className).Fields.put(fieldName, new Symbol(lastType, mem.getDateAddress()));
+        mem.AddSizeDataAddres();
+        klasses.get(className).Fields.put(fieldName, new Symbol(lastType, mem.getLastDataAddress()));
     }
 
     public void addMethod(String className, String methodName, int address) {
@@ -53,11 +54,12 @@ public class SymbolTable {
     }
 
     public void addMethodLocalVariable(String className, String methodName, String localVariableName) {
-//        try {
+
         if (klasses.get(className).Methodes.get(methodName).localVariable.containsKey(localVariableName)) {
             ErrorHandler.printError("This variable already defined");
         }
-        klasses.get(className).Methodes.get(methodName).localVariable.put(localVariableName, new Symbol(lastType, mem.getDateAddress()));
+        mem.AddSizeDataAddres();
+        klasses.get(className).Methodes.get(methodName).localVariable.put(localVariableName, new Symbol(lastType, mem.getLastDataAddress()));
     }
 
     public void setSuperClass(String superClass, String className) {
@@ -139,8 +141,10 @@ public class SymbolTable {
             this.codeAddress = codeAddress;
             this.returnType = returnType;
             this.orderdParameters = new ArrayList<>();
-            this.returnAddress = mem.getDateAddress();
-            this.callerAddress = mem.getDateAddress();
+            mem.AddSizeDataAddres();
+            this.returnAddress = mem.getLastDataAddress();
+            mem.AddSizeDataAddres();
+            this.callerAddress = mem.getLastDataAddress();
             this.parameters = new HashMap<>();
             this.localVariable = new HashMap<>();
         }
@@ -156,7 +160,8 @@ public class SymbolTable {
         }
 
         public void addParameter(String parameterName) {
-            parameters.put(parameterName, new Symbol(lastType, mem.getDateAddress()));
+            mem.AddSizeDataAddres();
+            parameters.put(parameterName, new Symbol(lastType, mem.getLastDataAddress()));
             orderdParameters.add(parameterName);
         }
 
