@@ -23,10 +23,11 @@ public class CodeGenerator {
         symbolTable = new SymbolTable(memory);
         //TODO
     }
-    public void printMemory()
-    {
+
+    public void printMemory() {
         memory.pintCodeBlock();
     }
+
     public void semanticFunction(int func, Token next) {
         Log.print("codegenerator : " + func);
         switch (func) {
@@ -60,13 +61,13 @@ public class CodeGenerator {
                 assign();
                 break;
             case 10:
-                add();
+                operand("add");
                 break;
             case 11:
-                sub();
+                operand("sub");
                 break;
             case 12:
-                mult();
+                operand("mult");
                 break;
             case 13:
                 label();
@@ -238,24 +239,24 @@ public class CodeGenerator {
         try {
             symbolTable.getNextParam(className, methodName);
             ErrorHandler.printError("The few argument pass for method");
-        } catch (IndexOutOfBoundsException e) {}
-            varType t = varType.Int;
-            switch (symbolTable.getMethodReturnType(className, methodName))
-            {
-                case Int:
-                    t = varType.Int;
-                    break;
-                case Bool:
-                    t = varType.Bool;
-                    break;
-            }
-            Address temp = new Address(memory.getTemp(),t);
-            ss.push(temp);
-            memory.add3AddressCode(Operation.ASSIGN, new Address(temp.num, varType.Address, TypeAddress.Imidiate), new Address(symbolTable.getMethodReturnAddress(className, methodName), varType.Address), null);
-            memory.add3AddressCode(Operation.ASSIGN, new Address(memory.getCurrentCodeBlockAddress() + 2, varType.Address, TypeAddress.Imidiate), new Address(symbolTable.getMethodCallerAddress(className, methodName), varType.Address), null);
-            memory.add3AddressCode(Operation.JP, new Address(symbolTable.getMethodAddress(className, methodName), varType.Address), null, null);
+        } catch (IndexOutOfBoundsException e) {
+        }
+        varType t = varType.Int;
+        switch (symbolTable.getMethodReturnType(className, methodName)) {
+            case Int:
+                t = varType.Int;
+                break;
+            case Bool:
+                t = varType.Bool;
+                break;
+        }
+        Address temp = new Address(memory.getTemp(), t);
+        ss.push(temp);
+        memory.add3AddressCode(Operation.ASSIGN, new Address(temp.num, varType.Address, TypeAddress.Imidiate), new Address(symbolTable.getMethodReturnAddress(className, methodName), varType.Address), null);
+        memory.add3AddressCode(Operation.ASSIGN, new Address(memory.getCurrentCodeBlockAddress() + 2, varType.Address, TypeAddress.Imidiate), new Address(symbolTable.getMethodCallerAddress(className, methodName), varType.Address), null);
+        memory.add3AddressCode(Operation.JP, new Address(symbolTable.getMethodAddress(className, methodName), varType.Address), null, null);
 
-            //symbolStack.pop();
+        //symbolStack.pop();
 
 
     }
@@ -293,54 +294,40 @@ public class CodeGenerator {
 
     public void assign() {
 
-            Address s1 = ss.pop();
-            Address s2 = ss.pop();
+        Address s1 = ss.pop();
+        Address s2 = ss.pop();
 //        try {
-            if (s1.varType != s2.varType) {
-                ErrorHandler.printError("The type of operands in assign is different ");
-            }
+        if (s1.varType != s2.varType) {
+            ErrorHandler.printError("The type of operands in assign is different ");
+        }
 //        }catch (NullPointerException d)
 //        {
 //            d.printStackTrace();
 //        }
-            memory.add3AddressCode(Operation.ASSIGN, s1, s2, null);
+        memory.add3AddressCode(Operation.ASSIGN, s1, s2, null);
 
     }
 
-    public void add() {
+
+    public void operand(String oprand) {
+
         Address temp = new Address(memory.getTemp(), varType.Int);
         Address s2 = ss.pop();
         Address s1 = ss.pop();
 
         if (s1.varType != varType.Int || s2.varType != varType.Int) {
-            ErrorHandler.printError("In add two operands must be integer");
+            ErrorHandler.printError("In " + oprand + " two operands must be integer");
         }
-        memory.add3AddressCode(Operation.ADD, s1, s2, temp);
+        if (oprand.equals("add")) {
+            memory.add3AddressCode(Operation.ADD, s1, s2, temp);
+        } else if (oprand.equals("sub")) {
+            memory.add3AddressCode(Operation.SUB, s1, s2, temp);
+        }else if (oprand.equals("mult")){
+            memory.add3AddressCode(Operation.MULT, s1, s2, temp);
+        }
         ss.push(temp);
     }
 
-    public void sub() {
-        Address temp = new Address(memory.getTemp(), varType.Int);
-        Address s2 = ss.pop();
-        Address s1 = ss.pop();
-        if (s1.varType != varType.Int || s2.varType != varType.Int) {
-            ErrorHandler.printError("In sub two operands must be integer");
-        }
-        memory.add3AddressCode(Operation.SUB, s1, s2, temp);
-        ss.push(temp);
-    }
-
-    public void mult() {
-        Address temp = new Address(memory.getTemp(), varType.Int);
-        Address s2 = ss.pop();
-        Address s1 = ss.pop();
-        if (s1.varType != varType.Int || s2.varType != varType.Int) {
-            ErrorHandler.printError("In mult two operands must be integer");
-        }
-        memory.add3AddressCode(Operation.MULT, s1, s2, temp);
-//        memory.saveMemory();
-        ss.push(temp);
-    }
 
     public void label() {
         ss.push(new Address(memory.getCurrentCodeBlockAddress(), varType.Address));
