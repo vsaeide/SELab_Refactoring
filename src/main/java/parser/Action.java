@@ -1,25 +1,25 @@
 package parser;
 
 public class Action {
-    public act action;
+    public Act action;
     //if action = shift : number is state
     //if action = reduce : number is number of rule
     public int number;
 
-    public Action(act action, int number) {
+    public Action(Act action, int number) {
         this.action = action;
         this.number = number;
     }
 
     public String toString() {
 
-        if (action == act.accept) {
+        if (action == Act.ACCEPT) {
             return "acc";
         }
-        if (action == act.shift) {
+        if (action == Act.SHIFT) {
             return "s" + number;
         }
-        if (action == act.reduce) {
+        if (action == Act.REDUCE) {
             return "r" + number;
         }
 
@@ -27,8 +27,8 @@ public class Action {
     }
 }
 
-enum act {
-    shift,
-    reduce,
-    accept
+enum Act {
+    SHIFT,
+    REDUCE,
+    ACCEPT,
 }

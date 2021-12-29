@@ -6,15 +6,15 @@ package codegenerator;
 public class Address {
     private int num;
     private TypeAddress Type;
-    private varType varType;
+    private VarType varType;
 
-    public Address(int num, varType varType, TypeAddress Type) {
+    public Address(int num, VarType varType, TypeAddress Type) {
         this.num = num;
         this.Type = Type;
         this.varType = varType;
     }
 
-    public Address(int num, varType varType) {
+    public Address(int num, VarType varType) {
         this.num = num;
         this.Type = TypeAddress.Direct;
         this.varType = varType;
@@ -43,7 +43,7 @@ public class Address {
         return Type;
     }
 
-    public codegenerator.varType getVarType() {
+    public codegenerator.VarType getVarType() {
         return varType;
     }
 }

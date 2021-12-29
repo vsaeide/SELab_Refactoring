@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class Memory {
 
-    private List<_3AddressCode> codeBlock;
+    private List<ThreeAddressCode> codeBlock;
     private int lastTempIndex;
     private int lastDataAddress;
     private static int stratTempMemoryAddress = 500;
@@ -17,7 +17,7 @@ public class Memory {
     private static int tempSize = 4;
 
     public Memory() {
-        codeBlock = new ArrayList<_3AddressCode>();
+        codeBlock = new ArrayList<ThreeAddressCode>();
         lastTempIndex = stratTempMemoryAddress;
         lastDataAddress = stratDataMemoryAddress;
     }
@@ -33,17 +33,17 @@ public class Memory {
     }
 
     public int saveMemory() {
-        codeBlock.add(new _3AddressCode());
+        codeBlock.add(new ThreeAddressCode());
         return codeBlock.size() - 1;
     }
 
     public void add3AddressCode(Operation op, Address opr1, Address opr2, Address opr3) {
-        codeBlock.add(new _3AddressCode(op, opr1, opr2, opr3));
+        codeBlock.add(new ThreeAddressCode(op, opr1, opr2, opr3));
     }
 
     public void add3AddressCode(int i, Operation op, Address opr1, Address opr2, Address opr3) {
         codeBlock.remove(i);
-        codeBlock.add(i, new _3AddressCode(op, opr1, opr2, opr3));
+        codeBlock.add(i, new ThreeAddressCode(op, opr1, opr2, opr3));
     }
 
 
@@ -59,17 +59,17 @@ public class Memory {
     }
 }
 
-class _3AddressCode {
+class ThreeAddressCode {
     public Operation operation;
     public Address Operand1;
     public Address Operand2;
     public Address Operand3;
 
-    public _3AddressCode() {
+    public ThreeAddressCode() {
 
     }
 
-    public _3AddressCode(Operation op, Address opr1, Address opr2, Address opr3) {
+    public ThreeAddressCode(Operation op, Address opr1, Address opr2, Address opr3) {
         operation = op;
         Operand1 = opr1;
         Operand2 = opr2;

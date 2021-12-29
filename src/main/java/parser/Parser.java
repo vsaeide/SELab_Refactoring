@@ -11,7 +11,7 @@ import java.util.Stack;
 import Log.Log;
 import codegenerator.CodeGenerator;
 import errorHandler.ErrorHandler;
-import scanner.lexicalAnalyzer;
+import scanner.LexicalAnalyzer;
 import scanner.token.Token;
 
 
@@ -19,7 +19,7 @@ public class Parser {
     private List<Rule> rules;
     private Stack<Integer> parsStack;
     private ParseTable parseTable;
-    private lexicalAnalyzer lexicalAnalyzer;
+    private LexicalAnalyzer lexicalAnalyzer;
     private CodeGenerator cg;
 
     public Parser() {
@@ -42,7 +42,7 @@ public class Parser {
     }
 
     public void startParse(java.util.Scanner sc) {
-        lexicalAnalyzer = new lexicalAnalyzer(sc);
+        lexicalAnalyzer = new LexicalAnalyzer(sc);
         Token lookAhead = lexicalAnalyzer.getNextToken();
         boolean finish = false;
         Action currentAction;
@@ -52,10 +52,10 @@ public class Parser {
                 currentAction = parseTable.getActionTable(parsStack.peek(), lookAhead);
                 Log.print(currentAction.toString());
 
-                if (currentAction.action == act.shift) {
+                if (currentAction.action == Act.SHIFT) {
                     parsStack.push(currentAction.number);
                     lookAhead = lexicalAnalyzer.getNextToken();
-                } else if (currentAction.action == act.reduce) {
+                } else if (currentAction.action == Act.REDUCE) {
                     Rule rule = rules.get(currentAction.number);
                     for (int i = 0; i < rule.RHS.size(); i++) {
                         parsStack.pop();
@@ -70,7 +70,7 @@ public class Parser {
                         Log.print("Code Genetator Error");
                     }
 
-                } else if (currentAction.action == act.accept) {
+                } else if (currentAction.action == Act.ACCEPT) {
                     finish = true;
                 }
 
