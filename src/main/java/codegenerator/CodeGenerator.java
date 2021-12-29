@@ -166,11 +166,12 @@ public class CodeGenerator {
                 Symbol s = symbolTable.get(className, methodName, next.value);
                 varType t = varType.Int;
 
-                if (s.type == SymbolType.Int)
+                if (s.type == SymbolType.Int) {
                     t = varType.Int;
-                else
+                }
+                else {
                     t = varType.Bool;
-
+                }
 //                switch (s.type) {
 //                    case Bool:
 //                        t = varType.Bool;
