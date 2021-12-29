@@ -132,6 +132,9 @@ public class CodeGenerator {
             case 33:
                 defMain();
                 break;
+            default:
+                ErrorHandler.printError("invalid semantic function number");
+                break;
         }
     }
 
