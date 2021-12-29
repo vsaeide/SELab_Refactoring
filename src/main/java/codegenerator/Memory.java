@@ -1,12 +1,14 @@
 package codegenerator;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mohammad hosein on 6/27/2015.
  */
 public class Memory {
-    private ArrayList<_3AddressCode> codeBlock;
+
+    private List<_3AddressCode> codeBlock;
     private int lastTempIndex;
     private int lastDataAddress;
     private final int stratTempMemoryAddress = 500;
@@ -24,22 +26,24 @@ public class Memory {
         lastTempIndex += tempSize;
         return lastTempIndex - tempSize;
     }
-    public  int getDateAddress(){
+
+    public int getDateAddress() {
         lastDataAddress += dataSize;
-        return lastDataAddress-dataSize;
+        return lastDataAddress - dataSize;
     }
+
     public int saveMemory() {
         codeBlock.add(new _3AddressCode());
         return codeBlock.size() - 1;
     }
 
     public void add3AddressCode(Operation op, Address opr1, Address opr2, Address opr3) {
-        codeBlock.add(new _3AddressCode(op,opr1,opr2,opr3));
+        codeBlock.add(new _3AddressCode(op, opr1, opr2, opr3));
     }
 
     public void add3AddressCode(int i, Operation op, Address opr1, Address opr2, Address opr3) {
         codeBlock.remove(i);
-        codeBlock.add(i, new _3AddressCode(op, opr1, opr2,opr3));
+        codeBlock.add(i, new _3AddressCode(op, opr1, opr2, opr3));
     }
 
 
@@ -72,18 +76,17 @@ class _3AddressCode {
         Operand3 = opr3;
     }
 
-    public String toString()
-    {
-        if(operation == null) return "";
+    public String toString() {
+        if (operation == null) return "";
         StringBuffer res = new StringBuffer("(");
         res.append(operation.toString()).append(",");
-        if(Operand1 != null)
+        if (Operand1 != null)
             res.append(Operand1.toString());
         res.append(",");
-        if(Operand2 != null)
+        if (Operand2 != null)
             res.append(Operand2.toString());
         res.append(",");
-        if(Operand3 != null)
+        if (Operand3 != null)
             res.append(Operand3.toString());
         res.append(")");
 
