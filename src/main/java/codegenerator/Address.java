@@ -8,9 +8,9 @@ public class Address {
     private TypeAddress Type;
     private VarType varType;
 
-    public Address(int num, VarType varType, TypeAddress Type) {
+    public Address(int num, VarType varType, TypeAddress type) {
         this.num = num;
-        this.Type = Type;
+        this.Type = type;
         this.varType = varType;
     }
 
